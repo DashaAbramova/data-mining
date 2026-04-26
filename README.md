@@ -166,8 +166,10 @@
 |-----------|-------------|
 | 🐍 Язык | Python 3.9+ |
 | 📊 Анализ данных | Pandas, NumPy |
-| 📈 Визуализация | Matplotlib, Plotly, Folium |
+| 📈 Визуализация | Matplotlib, Seaborn, Plotly, Folium |
 | 🔍 Обработка сигналов | SciPy (FFT) |
+| 🤖 Машинное обучение | Scikit-learn (GradientBoostingRegressor) |
+| 💾 Сериализация | Joblib |
 | 🧮 Математика | Math |
 | 🗺️ Картография | Folium |
 | 📐 Геометрия | Matplotlib.patches (Ellipse) |
