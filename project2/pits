@@ -1,0 +1,35 @@
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+from scipy.fft import rfft, irfft
+import folium
+
+# Загрузка данных
+path_to_file = 'route4/1_w.csv'
+dataset = pd.read_csv(path_to_file, sep=';', encoding='cp1251')
+print(f"Импортировано {len(dataset)} строк")
+
+# Выбор необходимых параметров
+selected_features = [
+    'len',                   
+    'Скорость',              
+    'Широта',                
+    'Долгота',               
+    'Высота',                
+    'Ускорение по оси X',     
+    'Ускорение по оси Y',     
+    'Ускорение по оси Z',     
+    'Давление левый передний цилиндр',
+    'Давление правый передний цилиндр',
+    'Давление левый задний цилиндр',
+    'Давление правый задний цилиндр'
+]
+
+dataset = dataset[selected_features].copy()
+print(f"Отфильтровано столбцов: {len(dataset.columns)}")
+print("\nПервые 5 наблюдений:")
+print(dataset.head())
+
+print("\nПропущенные значения по столбцам:")
+print(dataset.isnull().sum())
