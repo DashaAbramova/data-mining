@@ -6,7 +6,7 @@ from scipy.fft import rfft, irfft
 import folium
 
 # Загрузка данных
-path_to_file = 'route4/1_w.csv'
+path_to_file = '1_w.csv'
 dataset = pd.read_csv(path_to_file, sep=';', encoding='cp1251')
 print(f"Импортировано {len(dataset)} строк")
 
