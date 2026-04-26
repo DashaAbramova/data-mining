@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_839ba7a98deed6eb17393cb91f026bd9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style="position: fixed; bottom: 50px; right: 50px; background: white; 
+            padding: 12px; border: 2px solid #ccc; border-radius: 8px; 
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2); z-index: 1000;
+            font-family: Arial, sans-serif;">
+    <b style="font-size: 14px;"> Условные обозначения</b><br>
+    <span style="color:#1E88E5;">●</span> Маршрут движения<br>
+    <span style="color:#E53935;">●</span> Выявленные дефекты<br>
+    <span style="color:#4CAF50;">●</span> Начальная точка<br>
+    <span style="color:#D32F2F;">●</span> Конечная точка
+</div>
+    
+            <div class="folium-map" id="map_839ba7a98deed6eb17393cb91f026bd9" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_839ba7a98deed6eb17393cb91f026bd9 = L.map(
+                "map_839ba7a98deed6eb17393cb91f026bd9",
+                {
+                    center: [53.74270020285713, 86.84728461428573],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+
+            
+
+        
+    
+            var tile_layer_84e22764f0bc0bd7f3c556b1b41ee38b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_84e22764f0bc0bd7f3c556b1b41ee38b.addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+            var poly_line_c43163f4a802e533ca9215a29753ef3b = L.polyline(
+                [[53.7275905, 86.8540161], [53.7275203, 86.8540483], [53.7274442, 86.8540746], [53.7273488, 86.8541328], [53.7271958, 86.8541846], [53.7270649, 86.8541561], [53.7269074, 86.8540754], [53.7266383, 86.8537551], [53.7264954, 86.8535098], [53.7264332, 86.853294], [53.7264332, 86.8530636], [53.7264918, 86.852815], [53.7266772, 86.8525652], [53.7268491, 86.8523531], [53.7270386, 86.8521586], [53.7272431, 86.8519279], [53.7274669, 86.8516909], [53.7276609, 86.8514753], [53.7278432, 86.851248], [53.7280025, 86.8510489], [53.7282109, 86.8508477], [53.7283935, 86.8506719], [53.7285617, 86.8505329], [53.7287047, 86.8503431], [53.7288914, 86.8501714], [53.729072, 86.849968], [53.7292753, 86.8497873], [53.7295098, 86.8496122], [53.72976, 86.8494272], [53.7300206, 86.8493294], [53.7302987, 86.8492235], [53.7306515, 86.8491411], [53.7309337, 86.8491417], [53.7312374, 86.8491894], [53.7314064, 86.8492048], [53.7315617, 86.8492321], [53.7317046, 86.849247], [53.731814, 86.8492796], [53.7319444, 86.8492564], [53.7321009, 86.8492337], [53.7322733, 86.8491757], [53.732448, 86.84912], [53.7326104, 86.8490264], [53.7327515, 86.8489115], [53.7328617, 86.8488169], [53.732938, 86.8486628], [53.7329994, 86.8484938], [53.7331029, 86.8481109], [53.7331398, 86.8479174], [53.7331758, 86.847595], [53.7331912, 86.84738], [53.7332133, 86.8471205], [53.7332251, 86.8469019], [53.7332363, 86.8467083], [53.7332448, 86.8464864], [53.7332538, 86.8461882], [53.7332613, 86.8459141], [53.7332668, 86.845638], [53.7332738, 86.8452098], [53.7332774, 86.8449062], [53.7332772, 86.8445988], [53.7332915, 86.8443315], [53.7333038, 86.8440366], [53.7333144, 86.8437912], [53.7333127, 86.8435591], [53.7333075, 86.8432723], [53.7333052, 86.8430396], [53.7333045, 86.8427829], [53.7332988, 86.8424444], [53.7332841, 86.8421481], [53.7332724, 86.8418036], [53.7332824, 86.8414296], [53.733311, 86.8409718], [53.7333536, 86.8406048], [53.7334078, 86.840275], [53.7335051, 86.8400139], [53.7336238, 86.8397486], [53.7337354, 86.8394506], [53.7338674, 86.8391986], [53.733971, 86.8389694], [53.7340757, 86.8387157], [53.7341486, 86.8384302], [53.7342029, 86.8381005], [53.7342144, 86.8377024], [53.7342155, 86.8372683], [53.7342418, 86.8368338], [53.7342804, 86.8363604], [53.7343647, 86.8360095], [53.7345623, 86.8355927], [53.7348392, 86.8351272], [53.7351548, 86.8346236], [53.7353698, 86.8342498], [53.735624, 86.833864], [53.7363111, 86.8334247], [53.7366222, 86.833275], [53.73698, 86.8331208], [53.7373828, 86.8330372], [53.7377935, 86.8330639], [53.7382205, 86.8330557], [53.7386555, 86.8330555], [53.7391043, 86.8330947], [53.7394928, 86.8332016], [53.7398607, 86.8334159], [53.7401905, 86.8337457], [53.7405721, 86.8342297], [53.740869, 86.8347058], [53.7411394, 86.835181], [53.7413139, 86.8357395], [53.7414744, 86.836284], [53.7416725, 86.8367125], [53.741993, 86.837033], [53.742444, 86.837228], [53.7429707, 86.8373963], [53.7434269, 86.8375197], [53.7443566, 86.8377326], [53.7447342, 86.837803], [53.7451082, 86.8378442], [53.7454934, 86.8379222], [53.7458982, 86.8379174], [53.7462986, 86.837985], [53.7466814, 86.838035], [53.7470735, 86.8380943], [53.7474249, 86.8382409], [53.74774, 86.8383512], [53.7480369, 86.8385457], [53.7483176, 86.838852], [53.7485969, 86.8392849], [53.7488743, 86.8396903], [53.7491836, 86.840102], [53.7494677, 86.8404117], [53.7496973, 86.8406925], [53.7499897, 86.8410105], [53.750241, 86.8412618], [53.7505507, 86.8415715], [53.7508639, 86.8418591], [53.7512284, 86.842198], [53.7515809, 86.8424737], [53.751934, 86.8427756], [53.7522838, 86.8430742], [53.7526414, 86.843355], [53.7530161, 86.8436785], [53.7533831, 86.8440199], [53.7537229, 86.8444365], [53.7540317, 86.8448989], [53.7543313, 86.8453521], [53.7546324, 86.8457556], [53.7549397, 86.8461397], [53.7552854, 86.846639], [53.7555879, 86.8470183], [53.7560383, 86.8475455], [53.7563613, 86.8479965], [53.7566735, 86.8484111], [53.7569175, 86.8488087], [53.7571394, 86.8491586], [53.7573007, 86.8494735], [53.7574412, 86.8497164], [53.7575728, 86.8499504], [53.7576457, 86.8500233], [53.7576826, 86.8500858], [53.757699, 86.8500766], [53.7577029, 86.8500805], [53.7577374, 86.8501662], [53.757833, 86.850313], [53.7579819, 86.8505387], [53.7581427, 86.8508275], [53.7583347, 86.8512243], [53.7584809, 86.8515753], [53.7585848, 86.852012], [53.7586012, 86.852694], [53.7584579, 86.8531651], [53.7583305, 86.8533961], [53.758218, 86.8536932], [53.7581398, 86.8539222], [53.7580705, 86.8541601], [53.7580043, 86.8543755], [53.7579409, 86.8546193], [53.7578748, 86.8548348], [53.7578029, 86.8550957], [53.7577127, 86.8554151], [53.7576115, 86.8557491], [53.7574868, 86.8561108], [53.7573589, 86.8564437], [53.7571586, 86.856781], [53.7569505, 86.8571361], [53.7568059, 86.8574011], [53.7565782, 86.857839], [53.7563855, 86.8583887], [53.7563233, 86.8589153], [53.756289, 86.8594698], [53.7560741, 86.8607141], [53.7559435, 86.8611979], [53.7558846, 86.861651], [53.7558551, 86.8619031], [53.7558397, 86.8622461], [53.7557908, 86.8627092], [53.7556237, 86.8631053], [53.7553749, 86.8634709], [53.7549844, 86.8638484], [53.7548172, 86.8639372], [53.7546441, 86.8640201], [53.7544537, 86.8640857], [53.7542725, 86.8641605], [53.754061, 86.8641026], [53.7538725, 86.8640165], [53.753693, 86.863965], [53.7535843, 86.8640355], [53.7536142, 86.864219], [53.7536345, 86.8642649], [53.753607, 86.864007], [53.7535616, 86.8639104]],
+                {"bubblingMouseEvents": true, "color": "#1E88E5", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#1E88E5", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+            var circle_marker_a9750ceef54dc681559f11b264d03e6e = L.circleMarker(
+                [53.7271958, 86.8541846],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.062878609861544, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_15e7c888e1c87db09c7c18dbc047f786 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8a32e69aca7e42deb656a91ad7bd62a7 = $(`<div id="html_8a32e69aca7e42deb656a91ad7bd62a7" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 45.0 м<br>     Интенсивность: 2.429<br>     Координаты: 53.727196, 86.854185     </div>`)[0];
+                popup_15e7c888e1c87db09c7c18dbc047f786.setContent(html_8a32e69aca7e42deb656a91ad7bd62a7);
+            
+        
+
+        circle_marker_a9750ceef54dc681559f11b264d03e6e.bindPopup(popup_15e7c888e1c87db09c7c18dbc047f786)
+        ;
+
+        
+    
+    
+            circle_marker_a9750ceef54dc681559f11b264d03e6e.bindTooltip(
+                `<div>
+                     Дефект на 45 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3a2a1d39dd431724c0696706108adc11 = L.circleMarker(
+                [53.7266383, 86.8537551],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.0522630979192105, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_483238a0f7f39fd62430f367f9bbf749 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ea1c15c2f4eabb9202708f650fd4d486 = $(`<div id="html_ea1c15c2f4eabb9202708f650fd4d486" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 115.0 м<br>     Интенсивность: 2.425<br>     Координаты: 53.726638, 86.853755     </div>`)[0];
+                popup_483238a0f7f39fd62430f367f9bbf749.setContent(html_ea1c15c2f4eabb9202708f650fd4d486);
+            
+        
+
+        circle_marker_3a2a1d39dd431724c0696706108adc11.bindPopup(popup_483238a0f7f39fd62430f367f9bbf749)
+        ;
+
+        
+    
+    
+            circle_marker_3a2a1d39dd431724c0696706108adc11.bindTooltip(
+                `<div>
+                     Дефект на 115 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2f8f6ae68469686e6f8d0687e9140572 = L.circleMarker(
+                [53.7563855, 86.8583887],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.154513648315302, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_2b1ee3eec8e6a276b79f65865c875efe = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1cd315f320a646673082712a26863378 = $(`<div id="html_1cd315f320a646673082712a26863378" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5545.0 м<br>     Интенсивность: 2.459<br>     Координаты: 53.756386, 86.858389     </div>`)[0];
+                popup_2b1ee3eec8e6a276b79f65865c875efe.setContent(html_1cd315f320a646673082712a26863378);
+            
+        
+
+        circle_marker_2f8f6ae68469686e6f8d0687e9140572.bindPopup(popup_2b1ee3eec8e6a276b79f65865c875efe)
+        ;
+
+        
+    
+    
+            circle_marker_2f8f6ae68469686e6f8d0687e9140572.bindTooltip(
+                `<div>
+                     Дефект на 5545 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fd45652d7ae57bf00f7ea880a0d1ba76 = L.circleMarker(
+                [53.7560741, 86.8607141],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.777938603203447, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_700f35ab71caeff44a1e61c38f190ca4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a9010499fe771752a31eb4a967349047 = $(`<div id="html_a9010499fe771752a31eb4a967349047" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5702.0 м<br>     Интенсивность: 2.000<br>     Координаты: 53.756074, 86.860714     </div>`)[0];
+                popup_700f35ab71caeff44a1e61c38f190ca4.setContent(html_a9010499fe771752a31eb4a967349047);
+            
+        
+
+        circle_marker_fd45652d7ae57bf00f7ea880a0d1ba76.bindPopup(popup_700f35ab71caeff44a1e61c38f190ca4)
+        ;
+
+        
+    
+    
+            circle_marker_fd45652d7ae57bf00f7ea880a0d1ba76.bindTooltip(
+                `<div>
+                     Дефект на 5702 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5cb3d20173da013cbfb4a08536191492 = L.circleMarker(
+                [53.7558846, 86.861651],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.81672741202454, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_1dcbc0d1b87a4550af223f6f18b55531 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c7692185437a042421d8444b9f4236c8 = $(`<div id="html_c7692185437a042421d8444b9f4236c8" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5768.0 м<br>     Интенсивность: 2.680<br>     Координаты: 53.755885, 86.861651     </div>`)[0];
+                popup_1dcbc0d1b87a4550af223f6f18b55531.setContent(html_c7692185437a042421d8444b9f4236c8);
+            
+        
+
+        circle_marker_5cb3d20173da013cbfb4a08536191492.bindPopup(popup_1dcbc0d1b87a4550af223f6f18b55531)
+        ;
+
+        
+    
+    
+            circle_marker_5cb3d20173da013cbfb4a08536191492.bindTooltip(
+                `<div>
+                     Дефект на 5768 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_945f9f0cab1a2e2f083135cee843a9f2 = L.circleMarker(
+                [53.7558551, 86.8619031],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.079842247497296, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_0ea0e42b44fea664f94064d4251212bd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dd414388fcb81b3178cefc71d133f1bc = $(`<div id="html_dd414388fcb81b3178cefc71d133f1bc" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5785.0 м<br>     Интенсивность: 2.434<br>     Координаты: 53.755855, 86.861903     </div>`)[0];
+                popup_0ea0e42b44fea664f94064d4251212bd.setContent(html_dd414388fcb81b3178cefc71d133f1bc);
+            
+        
+
+        circle_marker_945f9f0cab1a2e2f083135cee843a9f2.bindPopup(popup_0ea0e42b44fea664f94064d4251212bd)
+        ;
+
+        
+    
+    
+            circle_marker_945f9f0cab1a2e2f083135cee843a9f2.bindTooltip(
+                `<div>
+                     Дефект на 5785 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7222087300c34299d6e1687fcdb63a9b = L.circleMarker(
+                [53.7558397, 86.8622461],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.447446319801665, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_1c71b618cbcb3e39b3d90c007ded21b3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_677997ea7950a368547b0c79e3a1bb97 = $(`<div id="html_677997ea7950a368547b0c79e3a1bb97" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5807.0 м<br>     Интенсивность: 1.890<br>     Координаты: 53.755840, 86.862246     </div>`)[0];
+                popup_1c71b618cbcb3e39b3d90c007ded21b3.setContent(html_677997ea7950a368547b0c79e3a1bb97);
+            
+        
+
+        circle_marker_7222087300c34299d6e1687fcdb63a9b.bindPopup(popup_1c71b618cbcb3e39b3d90c007ded21b3)
+        ;
+
+        
+    
+    
+            circle_marker_7222087300c34299d6e1687fcdb63a9b.bindTooltip(
+                `<div>
+                     Дефект на 5807 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fced3234a8640065367511bab577b1d1 = L.circleMarker(
+                [53.7557908, 86.8627092],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.725035214660314, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_e7af1a892feb59e8c0b506c00b4cb37f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d8a74d359528f2e882f85cd9f4c7ae6f = $(`<div id="html_d8a74d359528f2e882f85cd9f4c7ae6f" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5838.0 м<br>     Интенсивность: 2.649<br>     Координаты: 53.755791, 86.862709     </div>`)[0];
+                popup_e7af1a892feb59e8c0b506c00b4cb37f.setContent(html_d8a74d359528f2e882f85cd9f4c7ae6f);
+            
+        
+
+        circle_marker_fced3234a8640065367511bab577b1d1.bindPopup(popup_e7af1a892feb59e8c0b506c00b4cb37f)
+        ;
+
+        
+    
+    
+            circle_marker_fced3234a8640065367511bab577b1d1.bindTooltip(
+                `<div>
+                     Дефект на 5838 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd20ccc864d7669a14474a5bc2047876 = L.circleMarker(
+                [53.7556237, 86.8631053],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_ed4be635d52d791bd0f8bcd15f468f6e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_eb689a2733235a49472b1f04fd4fc7fb = $(`<div id="html_eb689a2733235a49472b1f04fd4fc7fb" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 5870.0 м<br>     Интенсивность: 4.195<br>     Координаты: 53.755624, 86.863105     </div>`)[0];
+                popup_ed4be635d52d791bd0f8bcd15f468f6e.setContent(html_eb689a2733235a49472b1f04fd4fc7fb);
+            
+        
+
+        circle_marker_dd20ccc864d7669a14474a5bc2047876.bindPopup(popup_ed4be635d52d791bd0f8bcd15f468f6e)
+        ;
+
+        
+    
+    
+            circle_marker_dd20ccc864d7669a14474a5bc2047876.bindTooltip(
+                `<div>
+                     Дефект на 5870 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7c4caa5d034f76aabcc57a9d2134ef26 = L.circleMarker(
+                [53.754061, 86.8641026],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.954823915525494, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_f8868212655dce5427f85a91a6e0ecf0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a5e0fe9d6519cdd76231c3aae84d2e09 = $(`<div id="html_a5e0fe9d6519cdd76231c3aae84d2e09" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6063.0 м<br>     Интенсивность: 2.059<br>     Координаты: 53.754061, 86.864103     </div>`)[0];
+                popup_f8868212655dce5427f85a91a6e0ecf0.setContent(html_a5e0fe9d6519cdd76231c3aae84d2e09);
+            
+        
+
+        circle_marker_7c4caa5d034f76aabcc57a9d2134ef26.bindPopup(popup_f8868212655dce5427f85a91a6e0ecf0)
+        ;
+
+        
+    
+    
+            circle_marker_7c4caa5d034f76aabcc57a9d2134ef26.bindTooltip(
+                `<div>
+                     Дефект на 6063 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_03a806c92f68542b2544bdbc3dcede8b = L.circleMarker(
+                [53.753693, 86.863965],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.63667413543067, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_154927fe381d1edd60c75919fc016796 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0b72dcee5ac06cb5b18a747a2236f8f2 = $(`<div id="html_0b72dcee5ac06cb5b18a747a2236f8f2" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6105.0 м<br>     Интенсивность: 2.953<br>     Координаты: 53.753693, 86.863965     </div>`)[0];
+                popup_154927fe381d1edd60c75919fc016796.setContent(html_0b72dcee5ac06cb5b18a747a2236f8f2);
+            
+        
+
+        circle_marker_03a806c92f68542b2544bdbc3dcede8b.bindPopup(popup_154927fe381d1edd60c75919fc016796)
+        ;
+
+        
+    
+    
+            circle_marker_03a806c92f68542b2544bdbc3dcede8b.bindTooltip(
+                `<div>
+                     Дефект на 6105 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8bc6ff7d105572ea12cf2b5a67ec677b = L.circleMarker(
+                [53.7536142, 86.864219],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.978170319718313, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_d65b025d90bdf8a6fd37b1e07db83144 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d75dd090f9a7816a9d9c5f02d6299e14 = $(`<div id="html_d75dd090f9a7816a9d9c5f02d6299e14" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6130.0 м<br>     Интенсивность: 3.401<br>     Координаты: 53.753614, 86.864219     </div>`)[0];
+                popup_d65b025d90bdf8a6fd37b1e07db83144.setContent(html_d75dd090f9a7816a9d9c5f02d6299e14);
+            
+        
+
+        circle_marker_8bc6ff7d105572ea12cf2b5a67ec677b.bindPopup(popup_d65b025d90bdf8a6fd37b1e07db83144)
+        ;
+
+        
+    
+    
+            circle_marker_8bc6ff7d105572ea12cf2b5a67ec677b.bindTooltip(
+                `<div>
+                     Дефект на 6130 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8f6d39e93f999e61cd56f3d434f38169 = L.circleMarker(
+                [53.7536345, 86.8642649],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.378230514567202, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_21e9e627193514e072606c387ab7f4a2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_df8eb28132b3f54900f78b85bb192e59 = $(`<div id="html_df8eb28132b3f54900f78b85bb192e59" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6134.0 м<br>     Интенсивность: 2.867<br>     Координаты: 53.753634, 86.864265     </div>`)[0];
+                popup_21e9e627193514e072606c387ab7f4a2.setContent(html_df8eb28132b3f54900f78b85bb192e59);
+            
+        
+
+        circle_marker_8f6d39e93f999e61cd56f3d434f38169.bindPopup(popup_21e9e627193514e072606c387ab7f4a2)
+        ;
+
+        
+    
+    
+            circle_marker_8f6d39e93f999e61cd56f3d434f38169.bindTooltip(
+                `<div>
+                     Дефект на 6134 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d611afa86f436d856fdbecbce8e5696c = L.circleMarker(
+                [53.753607, 86.864007],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.320084052614578, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_3635e115a3d9c4caa1e668b88794973a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_74e545e01bd8ed04f8755a25ae0768ad = $(`<div id="html_74e545e01bd8ed04f8755a25ae0768ad" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6152.0 м<br>     Интенсивность: 2.181<br>     Координаты: 53.753607, 86.864007     </div>`)[0];
+                popup_3635e115a3d9c4caa1e668b88794973a.setContent(html_74e545e01bd8ed04f8755a25ae0768ad);
+            
+        
+
+        circle_marker_d611afa86f436d856fdbecbce8e5696c.bindPopup(popup_3635e115a3d9c4caa1e668b88794973a)
+        ;
+
+        
+    
+    
+            circle_marker_d611afa86f436d856fdbecbce8e5696c.bindTooltip(
+                `<div>
+                     Дефект на 6152 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2cf609153796d4de0c80476370ea3924 = L.circleMarker(
+                [53.7535616, 86.8639104],
+                {"bubblingMouseEvents": true, "color": "#E53935", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF5252", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.105293450322346, "stroke": true, "weight": 3}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+        var popup_6858a6e7cd356db74edbcdf98980e4c1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_06876140a86b433078523de7171837e1 = $(`<div id="html_06876140a86b433078523de7171837e1" style="width: 100.0%; height: 100.0%;">     <b>Дефект дороги</b><br>     Дистанция: 6160.0 м<br>     Интенсивность: 2.110<br>     Координаты: 53.753562, 86.863910     </div>`)[0];
+                popup_6858a6e7cd356db74edbcdf98980e4c1.setContent(html_06876140a86b433078523de7171837e1);
+            
+        
+
+        circle_marker_2cf609153796d4de0c80476370ea3924.bindPopup(popup_6858a6e7cd356db74edbcdf98980e4c1)
+        ;
+
+        
+    
+    
+            circle_marker_2cf609153796d4de0c80476370ea3924.bindTooltip(
+                `<div>
+                     Дефект на 6160 м
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_71d04ce2cea84e46e742158a75644000 = L.marker(
+                [53.7275905, 86.8540161],
+                {
+}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+            var icon_74408897e004a1f3fb4c1c188f08ede6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_31f2cccbe3745aa02430681c4b2659f5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_52bbe5c18334f649cbbf45b2ffeeb102 = $(`<div id="html_52bbe5c18334f649cbbf45b2ffeeb102" style="width: 100.0%; height: 100.0%;">Старт маршрута</div>`)[0];
+                popup_31f2cccbe3745aa02430681c4b2659f5.setContent(html_52bbe5c18334f649cbbf45b2ffeeb102);
+            
+        
+
+        marker_71d04ce2cea84e46e742158a75644000.bindPopup(popup_31f2cccbe3745aa02430681c4b2659f5)
+        ;
+
+        
+    
+    
+                marker_71d04ce2cea84e46e742158a75644000.setIcon(icon_74408897e004a1f3fb4c1c188f08ede6);
+            
+    
+            var marker_765d354074d6fcf274289b7447543c4d = L.marker(
+                [53.7535616, 86.8639104],
+                {
+}
+            ).addTo(map_839ba7a98deed6eb17393cb91f026bd9);
+        
+    
+            var icon_cca2fa081bcbd2cd79f67cf934e7af67 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "stop",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a2f381b3b6d82893cf0edda6b6d280fe = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b3fc11fd4d1cf99d7221c7aeefb031fd = $(`<div id="html_b3fc11fd4d1cf99d7221c7aeefb031fd" style="width: 100.0%; height: 100.0%;">Финиш маршрута</div>`)[0];
+                popup_a2f381b3b6d82893cf0edda6b6d280fe.setContent(html_b3fc11fd4d1cf99d7221c7aeefb031fd);
+            
+        
+
+        marker_765d354074d6fcf274289b7447543c4d.bindPopup(popup_a2f381b3b6d82893cf0edda6b6d280fe)
+        ;
+
+        
+    
+    
+                marker_765d354074d6fcf274289b7447543c4d.setIcon(icon_cca2fa081bcbd2cd79f67cf934e7af67);
+            
+</script>
+</html>
